@@ -1,0 +1,22 @@
+#install packages#
+install.packages('rvest')
+install.packages('stringr')
+install.packages('tidyr')
+
+#load libraries#
+library(rvest)
+library(stringr)
+library(tidyr)
+
+##identify the url of webpage you want scraped#
+url <- 'https://www.basketball-reference.com/draft/NBA_2016.html'
+
+#read in the html code#
+webpage <- read_html(url)
+
+#identify which elment you want scraped# 
+draft16_table <- html_nodes(webpage, 'table')
+draft16 <- html_table(draft16_table)[[1]]
+
+##print table##
+draft16
