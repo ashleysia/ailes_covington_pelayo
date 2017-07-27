@@ -11,15 +11,24 @@ salarydata <- function(yr, pg){
                   df <- cbind(yr,df)
                   colnames(df) <- c("Year","Name","Team","Salary")
                   df <- df[df$Name != 'NAME',]
-                  #  print(data.frame(df))
                   
                 })
   
 }
 
 
-sd17 <- setNames(do.call(rbind.data.frame, salarydata(2017,12)), c("Year","Name","Team","Salary"))
+sd17 <- do.call(rbind.data.frame, salarydata(2017,12))
+sd16 <- do.call(rbind.data.frame, salarydata(2016,11))
+sd15 <- do.call(rbind.data.frame, salarydata(2015,11))
+sd14 <- do.call(rbind.data.frame, salarydata(2014,10))
+sd13 <- do.call(rbind.data.frame, salarydata(2013,14))
+sd12 <- do.call(rbind.data.frame, salarydata(2012,13))
+sd11 <- do.call(rbind.data.frame, salarydata(2011,12))
+sd10 <- do.call(rbind.data.frame, salarydata(2010,11))
+sd09 <- do.call(rbind.data.frame, salarydata(2009,11))
+sd08 <- do.call(rbind.data.frame, salarydata(2008,11))
+sd07 <- do.call(rbind.data.frame, salarydata(2007,11))
 
-sd17
+sd_0617 <- rbind(sd17,sd16, sd15, sd14, sd13, sd12, sd11, sd10, sd09, sd08, sd07)
 
-write.csv(sd17table,file = "testsalary2017.csv",row.names=FALSE)
+write.csv(sd_0617,file = "nbasalarydata_06-17.csv",row.names=FALSE)
