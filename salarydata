@@ -3,7 +3,7 @@ library(xml2)
 library(rvest)
 
 salarydata <- function(yr, pg){
-  lapply(paste0('http://www.espn.com/nba/salaries/_/year/',yr,'/page/',1:pg,'/seasontype/4'),
+ fdf <- lapply(paste0('http://www.espn.com/nba/salaries/_/year/',yr,'/page/',1:pg,'/seasontype/4'),
          function(url){
            tbls_xml <- readHTMLTable(url)
            df <- data.frame(tbls_xml)
@@ -11,12 +11,15 @@ salarydata <- function(yr, pg){
            df <- cbind(yr,df)
            colnames(df) <- c("Year","Name","Team","Salary")
            df <- df[df$Name != 'NAME',]
-           print(data.frame(df))
+         #  print(data.frame(df))
            
          })
+
 }
 
-salarydata(2017,12)
 
-write.csv(salarydata(2017,12),file = "testsalary2017.csv",row.names=FALSE)
+sd17 <- setNames(do.call(rbind.data.frame, salarydata(2017,12)), c("Year","Name","Team","Salary"))
 
+sd17
+
+write.csv(sd17table,file = "testsalary2017.csv",row.names=FALSE)
