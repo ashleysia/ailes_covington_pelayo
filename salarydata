@@ -1,0 +1,22 @@
+library(XML)
+library(xml2)
+library(rvest)
+
+salarydata <- function(yr, pg){
+  lapply(paste0('http://www.espn.com/nba/salaries/_/year/',yr,'/page/',1:pg,'/seasontype/4'),
+                function(url){
+                  tbls_xml <- readHTMLTable(url)
+                  df <- data.frame(tbls_xml)
+                  df <- df[,c(2,3,4)]
+                  colnames(df) <- c("Name","Team","Salary")
+                  df <- df[df$Name != 'NAME',]
+                  df <- cbind(yr,df)
+                  colnames(df) <- c("Year","Name","Team","Salary")
+                  print(data.frame(df))
+                  
+                })
+}
+
+salarydata(2017,12)
+
+write.csv(salarydata(2017,12),file = "testsalary2017.csv",row.names=FALSE)
